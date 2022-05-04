@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "TeamsRequest", type: :request do
   describe 'index' do
-    let(:teams) { create_list(:team, 2) }
+    let!(:teams) { create_list(:team, 2) }
     before { get '/teams' }
     
     describe 'response' do
