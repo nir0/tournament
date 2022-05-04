@@ -1,0 +1,4 @@
+= link_to "Add team", [:new, :team]
+%ul
+  - @teams.map do |team|
+    %li= link_to team.name || 'Noname', [:edit, team]

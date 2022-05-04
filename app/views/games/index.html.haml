@@ -1,0 +1,35 @@
+%p
+  = link_to 'Manage teams', :teams
+  = link_to 'Prepare Division A', :prepare_division_a, method: :patch if allowed_to? :prepare_division_a?, with: GamePolicy
+  = link_to 'Prepare Division B', :prepare_division_b, method: :patch if allowed_to? :prepare_division_b?, with: GamePolicy
+  = link_to 'Playoff', :playoff, method: :patch if allowed_to? :playoff?, with: GamePolicy
+%h4 Teams list
+%ul
+  - @teams.map do |team|
+    %li #{team.name}, division: #{team.division || 'not set'}, total score: #{team.score}
+%h4 Games
+:css
+  table { width: 90%; }
+  th {width: 14%}
+  .va-middle{vertical-align: middle;}
+%table
+  %tr
+    %th Div A 1/8
+    %th Div A 1/4
+    %th Div A 1/2
+    %th Final
+    %th Div B 1/2
+    %th Div B 1/4
+    %th Div B 1/8
+  %tr
+    %td.va-middle= render @games_a_1
+    %td.va-middle= render @games_a_2
+    %td.va-middle= render @games_a_3
+    %td.va-middle= render @game_4 if @game_4.present?
+    %td.va-middle= render @games_b_3
+    %td.va-middle= render @games_b_2
+    %td.va-middle= render @games_b_1
+%p 
+  Additional actions:
+  = link_to "Drop all data", :drop_data, method: :patch
+  = link_to "Seed teams", :seed, method: :patch
